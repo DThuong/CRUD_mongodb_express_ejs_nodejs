@@ -1,0 +1,53 @@
+<%- include("layout/header") %>
+
+<div class="container">
+  <div class="row my-4">
+    <div class="col-lg-12">
+
+        <% if (message) { %> <!--Gửi message thông báo cho người dùng -->
+         <div class="alert alert-dismissible fade show alert-<%= message.type %> 
+            role = alert">
+            <button class="btn-close" type="button" data-bs-dismiss="alert"></button>
+            <strong><%= message.message %></strong>
+        </div>
+        <% } %>
+        
+      <div class="table-responsive">
+        <% if (users != null) { %>
+                 
+        <table class="table table-striped text-center">
+            <thead>
+              <tr class="table-dark">
+                <th scope="col">Id</th>
+                <th scope="col">Image</th>
+                <th scope="col">Name</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead class="table-secondary">
+            <tbody>
+              <% users.forEach((row, index) => { %>
+                <tr class="align-middle">
+                    <th scope="row"><%= index %></th>
+                    <td><img src="<%= row.image %>" width="50" alt="" class="img-thumbnail" /></td>
+                    <td><%= row.name  %></td>
+                    <td><%= row.email %></td>
+                    <td><%= row.phone  %></td>
+                    <td>
+                      <a href="/edit/<%= row._id  %>" class="text-success"><i class="fas fa-edit fa-lg"></i></a>
+                      <a href="/delete/<%= row._id  %>" class="text-danger"><i class="fa-solid fa-trash-can fa-lg"></i></a>
+                    </td>
+                  </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        <% } else {%>
+            <h1 class="text-center text-secondary mt-4">No user found in database.</h1>
+            <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include("layout/footer") %>
